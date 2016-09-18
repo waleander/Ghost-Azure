@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:background-image="http://www.w3.org/1999/xhtml">
+
+<head>
+    {{! Document Settings }}
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    {{! Page Meta }}
+    <title>{{meta_title}}</title>
+    <meta name="description" content="{{meta_description}}"/>
+
+    <meta name="HandheldFriendly" content="True"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    {{#if @blog.logo}}
+        <link rel="shortcut icon" href="{{@blog.logo}}">{{/if}}
+
+    {{! Styles'n'Scripts }}
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link type="text/css" href="{{ asset "css/bootstrap.readable.min.css"}}" rel="stylesheet"/>
+    <link type="text/css" href="{{ asset "css/app.css"}}" rel="stylesheet"/>
+
+    {{! Ghost outputs important style and meta data with this tag }}
+    {{ghost_head}}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset "css/prism.css"}}"/>
+</head>
+
+<script>
+    $('body').flowtype();
+</script>
+
+<style>
+    /*
+     * Custom keyword styles
+     */
+    .token.keyword.keyword-return, .token.keyword.keyword-if {
+        color: #f92672;
+    }
+</style>
+<body class="{{body_class}}">
+
+
+<div class="container">
+
+    <div class="sdblt-container col-lg-3 col-sm-12 col-md-3 col-xs-12">
+        <div class="sidebar-left">
+            <button type="button" class="btn btn-sm sdb-collapse pan1" aria-label="Left Align">
+            <i class=""  aria-hidden="false"></i>
+            </button>
+
+            <button type="button" class="btn btn-sm sdb-collapse pan2">
+            <i class="" aria-hidden="true"></i>
+            </button>
+
+            <div>
+                <span class="pull-right">{{#if @blog.logo}}<a href="{{@blog.url}}"><img class="img-thumbnail blog-img" src="{{@blog.logo}}"
+                                                                   alt="{{@blog.title}}"/></a>{{/if}}</span> 
+                <h2 class="blog-title button"><a href="{{@blog.url}}">{{@blog.title}}</a></h2>
+                <div class="inner">
+                  
+                    <div class="blog-description"><span class="descript"><em>Hi!</em></span>
+                        <p>I am <span style="font-weight:bolder; font-size: 25px ">Akin Oluyele.</span><br/>
+                            {{@blog.description}}</p>
+                    </div>
+
+                    <div id="sidebar-links">     
+                        <ul id="sidebar-external">
+                          {{#if post}}
+                          <li ><a href="{{@blog.url}}"><i class="fa fa-home" style="color:tomato; font-size: 35px;"></i> <span class="toggle-icon"></span></a>
+                           {{/if}}</li>                           
+                            {{> sidebar-external}}
+                            <li><a target="_blank" href="{{@blog.url}}/rss/"><i class="fa fa-rss"></i> <span class="toggle-icon">&nbsp;&nbsp;&nbsp;Subscribe
+                                via RSS</span></a>
+                            </li>
+                        </ul>
+
+                        
+                    </div>
+
+                    <footer class="site-footer">
+                        <section class="cp-right">{{> copyright}}</section>
+                        <section class="poweredby"></section>
+                    </footer>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="main-wrapper col-lg-7 col-sm-12 col-md-7 col-xs-12" id="main">
+
+        <main>
+
+            <div class="search-wrapper">
+                <form id="search">
+                    <input id="search-field" type="search" class="form-control divider short"
+                           placeholder='e.g. "Scala", "AngularJS"'/>
+                </form>
+            </div>
+            <div class="main-inner">
+                <section id="results"></section>
+                {{{body}}}
+            </div>
+        </main>
+
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 sidebar-right">
+
+        <div class="sdb-section">
+            <h6>Future posts</h6>
+            <em>We do not have posts for the future now</em>
+        </div>
+
+        <div class="sdb-section">
+            <h6>Recents posts</h6>
+
+            <ol class="sdbr-list">
+                {{>list}}
+            </ol>
+        </div>
+
+
+        <div class="sdb-section">
+            <h6>Recent Series</h6>
+            <ol class="sdbr-list">
+
+                {{#get "tags" limit="5" fields="description, date, slug" filter="description:-null"}}
+                    {{#foreach tags}}
+                        <li><a href="/tag/{{slug}}">{{description}}</a></li>
+                        <em class="sd-em">{{date format="MMMM Do, YYYY"}}</em>
+                    {{/foreach}}
+
+                {{/get}}
+
+                {{#foreach posts}}
+
+                {{/foreach}}
+            </ol>
+        </div>
+    </div>
+</div>
+
+{{! Ghost outputs important scripts and data with this tag }}
+{{ghost_foot}}
+
+<!--<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+<script type="text/javascript" src="{{asset "js/jquery-2.2.0.min.js"}}"></script>
+<script type="text/javascript" src="{{asset "js/index.min.js"}}"></script>
+<script type="text/javascript" src="{{asset "js/prism.js"}}"></script>
+<script type="text/javascript" src="{{asset "js/jquery.fitvids.min.js"}}"></script>
+<script type="text/javascript" src="{{asset "js/bootstrap.min.js"}}"></script>
+<script type="text/javascript" src="{{asset "js/app.js"}}"></script>
+<script type="text/javascript" src="{{asset "js/jquery.ghostHunter.min.js"}}"></script>
+<script type="text/javascript" src="{{asset "js/flowtype.js"}}"></script>
+<script>
+
+    $('#search-field').ghostHunter({
+        rss: "{{@blog.url}}/rss/",
+        results: "#results",
+        onKeyUp: true,
+        zeroResultsInfo: true
+    });
+
+    $('body').flowtype({
+        minimum: 400,
+        maximum: 700,
+        minFont: 14,
+        maxFont: 35,
+        fontRatio: 35
+    });
+</script>
+
+</body>
+
+</html>

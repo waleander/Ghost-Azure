@@ -35,10 +35,10 @@ config = {
          mail: {
              transport: 'SMTP',
              options: {
-                 service: process.env.emailService,
+                 service: 'Mailgun',
                  auth: {
-                     user: process.env.emailUsername, // mailgun username
-                     pass: process.env.emailPassword  // mailgun password
+                     user: 'postmaster@sandboxf37f2e2858fa49e1be4b5ab107738365.mailgun.org', // mailgun username
+                     pass: '58a3ac1ef35c59320266ad4ad882dbf4'  // mailgun password
                  }
              }
          },

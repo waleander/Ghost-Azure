@@ -1,0 +1,25 @@
+<nav class="paging" role="pagination">
+    <div>&nbsp;</div>
+    <ul id="pagination" class="modal-2">
+        {{#if prev}}
+            <li><a href="{{page_url prev}}" class="prev pull-left">&laquo </a></li>
+        {{else}}
+            <li><a style="background:darkgray;" class="prev inactive pull-left">&laquo </a></li>
+        {{/if}}
+
+
+        <!--<li><a href="{{page_url page}}" class="active">{{page}}</a></li>-->
+        {{#if next}}
+            <li><a href="{{page_url next}}" class="next pull-right">  &raquo;</a></li>
+        {{else}}
+            <li><a style="background:darkgray;" class="next inactive pull-right">  &raquo;</a></li>
+        {{/if}}
+    </ul>
+</nav>
+
+
+
+
+
+
+

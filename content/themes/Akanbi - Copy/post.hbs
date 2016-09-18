@@ -1,0 +1,65 @@
+{{!< default}}
+
+{{! The comment above "< default" means - insert everything in this file into
+    the {body} of the default.hbs template, which contains our header/footer. }}
+
+    {{! Everything inside the #post tags pulls data from the post }}
+    {{#post}}
+
+    <article class="{{post_class}}">
+
+        <header class="post-header">
+            {{#if image}}
+                <img class="post-cover" src="{{image}}" alt="{{title}}">
+            {{/if}}
+
+            <h1 class="post-title">{{title}}</h1>
+            <h2>{{meta_title}}</h2>
+            
+            <section class="post-meta">
+                <span class="post-time">
+                    <i class='fa fa-calendar'></i>
+                    <time datetime="{{date format="YYYY-MM-DD"}}" class="timeago">{{date timeago="true"}}</time>
+                    <time datetime="{{date format="YYYY-MM-DD"}}" class="fulldate">{{date format="MMMM Do, YYYY"}}</time>
+                </span>
+                {{tags prefix="<br><i class='fa fa-tag'></i> " separator=" · "}}
+            </section>
+        </header>
+
+        <section class="post-content" id="pcontent">
+            {{content}}
+        </section>
+
+        <footer class="post-footer">
+            {{> addons/share}}
+
+        </footer>
+
+        {{> addons/comment}}
+
+
+        <aside class="read-next">
+            {{#next_post}}
+            <h3 style="color:#1E4221; margin-bottom: 10px; font-size: 15px">Next post</h3>
+            <a class="read-next-story {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}" href="{{url}}">
+                <section class="read-next-post">
+                    <h4>{{title}}</h4>
+                    {{content words="19"}}&hellip;</p>
+                </section>
+            </a>
+            {{/next_post}}
+            {{#prev_post}}
+            <h3 style="color:#1E4221; margin-bottom: 10px; font-size:15px">Previous post</h3>
+            <a class="read-next-story prev {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}" href="{{url}}">
+                <section class="read-next-post">
+                    <h4 sty>{{title}}</h4>
+                    <p>{{excerpt words="19"}}&hellip;</p>
+                </section>
+            </a>
+            {{/prev_post}}
+        </aside>
+
+
+    </article>
+
+    {{/post}}
